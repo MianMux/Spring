@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>  <!--xml的版本号和编码-->
+
+<!--xml的约束，对于IOC，DI(注解的实现)和mvc约束不同。此处只有最基本的IOC约束。-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+    bean标签的作用：
+        1. 告诉spring容器（ApplicationContext或者BeanFactory）要创建哪些类的对象
+        2. 给这些对象的属性注入值（构造方法注入或者setter方法注入）
+        3. 设置这些对象的范围（scope，singleton prototype request session global session）
+        4. 设置这些对象的生命周期方法。即被创建后调用哪个方法，被销毁前调用哪个方法。-->
+
+    <!--
+    bean标签的属性：
+        1. id:容器中对象的唯一标识，在Java代码中通过这个id获得这个对象。
+        2. class: 指定这个对象所属的类。即指定要创建哪个累的对象。
+        3. scope: 对象的范围。singleton prototype request session global session
+        4. init-method：指定对象被创建后执行哪个方法（这个方法在class属性指定的类中定义）
+        5. destroy-method：指定对象被销毁前执行哪个方法（这个方法在class属性指定的类中定义）。测试时，容器的实现类有一个销毁对象的方法。（接口没有）
+        6. name：为对象起一个名字，可以有多个值，用逗号隔开。在Java代码中可以用名字找到这个对象。-->
+
+    <!--
+    bean标签的子标签：
+        1. constructor-arg:通过构造方法（器）为这个对象注入值（为属性设置值）  注意：用这个标签必须在类中有相应的有参构造方法。
+            constructor-arg的属性：
+                name="指定对象的属性名称"
+                value="指定对象的属性值"
+                ref="如果对象的属性是一个bean的话，指定它的id"
+
+                index="属性在构造方法参数列表中位置"
+                type="对象属性的类型"
+
+        2. property
+             name="指定对象的属性名称"
+             ref="如果对象的属性是一个bean的话，指定它的id"
+             value="指定对象的属性值"
+    -->
+    <bean id="user" class="demo.User">
+        <!--        1. 构造器注入依赖-->
+        <!--        <constructor-arg name="id" value="1"></constructor-arg>-->
+        <!--        <constructor-arg name="name" value="zhangsan"></constructor-arg>-->
+        <!--        <constructor-arg name="password" value="1234"></constructor-arg>-->
+        <!--        2. 使用set方法注入-->
+        <property name="id" value="2"></property>
+        <property name="name" value="lisi"></property>
+        <property name="password" value="5678"></property>
+    </bean>
+</beans>
